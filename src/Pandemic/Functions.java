@@ -1,5 +1,6 @@
 package Pandemic;
 
+import java.io.*;
 import java.util.Arrays;
 import java.util.Random;
 import java.lang.Math;
@@ -11,22 +12,24 @@ public class Functions {
 
 
     public static Person[] initializeAgents(int numberOfAgents){
-        Random rand = new Random();
+
         Person[] agents = new Person[numberOfAgents];
+        Random rand = new Random();
         for (int i = 0; i < numberOfAgents; i++){
-            double x = 100.0 * rand.nextDouble();
-            double y = 100.0 * rand.nextDouble();
+            double x = 1000.0 * rand.nextDouble();
+            double y = 1000.0 * rand.nextDouble();
             agents[i] = new Person(x,y,false,false,false);
         }
         return agents;
     }
 
     public static Person[] specific_agents(int numberOfAgents, double percentageInfected, double percentageMasked, double percentageVaccinated ){
-        Random rand = new Random();
+
         Person[] agents = new Person[numberOfAgents];
         for (int i = 0; i < numberOfAgents; i++){
-            double x = 100.0 * rand.nextDouble();
-            double y = 100.0 * rand.nextDouble();
+            Random rand = new Random();
+            double x = 2000.0 * rand.nextDouble();
+            double y = 2000.0 * rand.nextDouble();
             agents[i] = new Person(x,y,false,false,false);
         }
         int infected = (int) (percentageInfected * agents.length);
@@ -97,7 +100,7 @@ public class Functions {
 
     public static void move(Person[] agents){
         for (Person agent:agents){
-            agent.move();
+            agent.timeStep();
         }
     }
 
@@ -112,14 +115,43 @@ public class Functions {
         }
     }
 
-    public static int countInfected(Person[] agents){
+    public static int countInfected(Person[] agents) throws IOException {
         int count = 0;
         for (Person agent:agents){
             if (agent.infected){
                 count++;
             }
         }
+
+        try (FileWriter writer = new FileWriter("count.csv", true)) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(count);
+            sb.append('\n');
+            writer.write(sb.toString());
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
         return count;
+    }
+
+    public static void toCsv(Person[] agents) throws IOException {
+        try (FileWriter writer = new FileWriter("pandemic.csv", true)) {
+             StringBuilder sb = new StringBuilder();
+
+             for (int i =0; i < agents.length; i++) {
+
+                 sb.append(agents[i].toString());
+                 sb.append('\n');
+
+             }
+
+            writer.write(sb.toString());
+            } catch (FileNotFoundException e) {
+                System.out.println(e.getMessage());
+            }
+
+
     }
 
 }

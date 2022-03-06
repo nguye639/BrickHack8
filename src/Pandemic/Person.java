@@ -19,18 +19,18 @@ public class Person {
         this.masked = masked;
         this.vaccinated = vaccinated;
         this.infectedTime = 0;
-        this.immunity = 0;
+        this.immunity = .3;
     }
 
     public void move() {
 
-        this.x += 6*rand.nextDouble() - 3;
-        this.y += 6*rand.nextDouble() - 3;
+        this.x += 60*rand.nextDouble() - 30;
+        this.y += 60*rand.nextDouble() - 30;
     }
 
     public void timeStep(){
-        int infectedLimit = 1000;
-        double immunityDecay = .0001;
+        int infectedLimit = 500 + rand.nextInt(700);
+        double immunityDecay = .001;
         move();
         if (this.infected){
             this.infectedTime++;
@@ -57,6 +57,11 @@ public class Person {
 
     public void infect(){
         double infectRoll = rand.nextDouble();
+
+        if (this.masked){
+            infectRoll = infectRoll/2;
+        }
+
         if (infectRoll > this.immunity){
             this.infected = true;
             this.immunity = 1;
@@ -65,12 +70,11 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person{" +
-                "x=" + x +
-                ", y=" + y +
-                ", infected=" + infected +
-                ", masked=" + masked +
-                ", vaccinated=" + vaccinated +
-                '}';
+        return "" + x +
+                "," + y +
+                "," + infected +
+                "," + masked +
+                "," + vaccinated;
+
     }
 }
