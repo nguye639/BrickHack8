@@ -16,7 +16,7 @@ public class Main {
         Files.deleteIfExists(file2.toPath());
         int steps = 28*100;
         int n = 1000;
-        Person[] agents = Functions.specific_agents(n,.01,1,0);
+        Person[] agents = Functions.specific_agents(n,.01,0,0);
 
         for (int i = 0; i < steps; i++){
             double[][] matrix = Functions.distanceMatrix(agents);

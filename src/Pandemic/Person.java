@@ -52,7 +52,7 @@ public class Person {
 
     public void vacinate(){
         this.vaccinated = true;
-        this.immunity = 1;
+        this.immunity = .97;
     }
 
     public void infect(){
