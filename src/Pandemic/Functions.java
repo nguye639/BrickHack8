@@ -5,6 +5,7 @@ import java.util.Random;
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Functions {
 
@@ -18,6 +19,48 @@ public class Functions {
             agents[i] = new Person(x,y,false,false,false);
         }
         return agents;
+    }
+
+    public static Person[] specific_agents(int numberOfAgents, double percentageInfected, double percentageMasked, double percentageVaccinated ){
+        Random rand = new Random();
+        Person[] agents = new Person[numberOfAgents];
+        for (int i = 0; i < numberOfAgents; i++){
+            double x = 100.0 * rand.nextDouble();
+            double y = 100.0 * rand.nextDouble();
+            agents[i] = new Person(x,y,false,false,false);
+        }
+        int infected = (int) (percentageInfected * agents.length);
+        int masked = (int) (percentageInfected * agents.length);
+        int vacinated = (int) (percentageInfected * agents.length);
+
+        shuffleArray(agents);
+        for(int i = 0; i < infected; i++){
+            agents[i].infected = true;
+        }
+
+        shuffleArray(agents);
+        for(int j = 0; j < masked; j++){
+            agents[j].masked = true;
+        }
+
+        shuffleArray(agents);
+        for(int k = 0; k < vacinated; k++){
+            agents[k].vaccinated = true;
+        }
+
+        return agents;
+    }
+
+    static void shuffleArray(Person[] ar) {
+        Random rnd = ThreadLocalRandom.current();
+        for (int i = ar.length - 1; i > 0; i--)
+        {
+            int index = rnd.nextInt(i + 1);
+            // Simple swap
+            Person a = ar[index];
+            ar[index] = ar[i];
+            ar[i] = a;
+        }
     }
 
     public static double[][] distanceMatrix(Person[] agents){
