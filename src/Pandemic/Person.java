@@ -30,7 +30,7 @@ public class Person {
 
     public void timeStep(){
         int infectedLimit = 500 + rand.nextInt(700);
-        double immunityDecay = .005;
+        double immunityDecay = 0.0001;
         move();
         if (this.infected){
             this.infectedTime++;
@@ -52,14 +52,14 @@ public class Person {
 
     public void vacinate(){
         this.vaccinated = true;
-        this.immunity = .99;
+        this.immunity = 1;
     }
 
     public void infect(){
         double infectRoll = rand.nextDouble();
 
         if (this.masked){
-            infectRoll -= .79;
+            infectRoll = infectRoll/2;
         }
 
         if (infectRoll > this.immunity){

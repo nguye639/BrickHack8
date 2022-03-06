@@ -17,7 +17,6 @@ public class Main {
         int steps = 28*100;
         int n = 1000;
         Person[] agents = Functions.specific_agents(n,.01,1,0);
-        agents[0].infect();
 
         for (int i = 0; i < steps; i++){
             double[][] matrix = Functions.distanceMatrix(agents);

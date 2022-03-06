@@ -33,8 +33,8 @@ public class Functions {
             agents[i] = new Person(x,y,false,false,false);
         }
         int infected = (int) (percentageInfected * agents.length);
-        int masked = (int) (percentageInfected * agents.length);
-        int vacinated = (int) (percentageInfected * agents.length);
+        int masked = (int) (percentageMasked * agents.length);
+        int vacinated = (int) (percentageVaccinated * agents.length);
 
         shuffleArray(agents);
         for(int i = 0; i < infected; i++){
@@ -48,7 +48,7 @@ public class Functions {
 
         shuffleArray(agents);
         for(int k = 0; k < vacinated; k++){
-            agents[k].vaccinated = true;
+            agents[k].vacinate();
         }
 
         return agents;
